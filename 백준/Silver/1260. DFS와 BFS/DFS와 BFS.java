@@ -25,6 +25,7 @@ public class Main {
     }
 
     static String BFS(int num) {
+        Arrays.fill(visited, false);
         StringBuilder result = new StringBuilder();
         Queue<Integer> q = new LinkedList<>();
         q.add(num);
@@ -63,7 +64,6 @@ public class Main {
         }
 
         System.out.println(DFS(v).trim());
-        Arrays.fill(visited, false);
         System.out.println(BFS(v).trim());
     }
 }
