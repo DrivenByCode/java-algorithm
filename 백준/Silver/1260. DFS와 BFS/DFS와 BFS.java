@@ -1,22 +1,19 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     static int n, m, v;
     static boolean[] visited;
-    static int[][] adjMatrix;
+    static ArrayList<Integer>[] adjList;
 
     static String DFS(int num) {
         StringBuilder result = new StringBuilder();
         result.append(num).append(" ");
         visited[num] = true;
-        for (int next = 1; next <= n; next++) {
-            if (adjMatrix[num][next] == 1 && !visited[next]) {
+        for (int next : adjList[num]) {
+            if (!visited[next]) {
                 visited[next] = true;
                 result.append(DFS(next));
             }
@@ -33,8 +30,8 @@ public class Main {
             int now = q.poll();
             visited[now] = true;
             result.append(now).append(" ");
-            for (int next = 1; next <= n; next++) {
-                if (adjMatrix[now][next] == 1 && !visited[next]) {
+            for (int next : adjList[now]) {
+                if (!visited[next]) {
                     visited[next] = true;
                     q.add(next);
                 }
@@ -53,14 +50,22 @@ public class Main {
         v = Integer.parseInt(st.nextToken());
 
         visited = new boolean[n + 1];
-        adjMatrix = new int[n + 1][n + 1];
+        adjList = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) {
+            adjList[i] = new ArrayList<>();
+        }
 
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            adjMatrix[a][b] = 1;
-            adjMatrix[b][a] = 1;
+            adjList[a].add(b);
+            adjList[b].add(a);
+        }
+
+        // 인접 리스트 정렬
+        for (int i = 1; i <= n; i++) {
+            Collections.sort(adjList[i]);
         }
 
         System.out.println(DFS(v).trim());
