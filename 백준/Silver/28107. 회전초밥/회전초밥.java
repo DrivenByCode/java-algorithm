@@ -1,21 +1,18 @@
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
-    static class CustomComparator implements Comparator<Point> {
+    static class Order {
+        int customer;
+        int sushiType;
 
-        @Override
-        public int compare(Point p1, Point p2) {
-            if (p1.y == p2.y) {
-                return p1.x - p2.x;
-            }
-            return p1.y - p2.y;
+        public Order(int customer, int sushiType) {
+            this.customer = customer;
+            this.sushiType = sushiType;
         }
     }
 
@@ -26,20 +23,20 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        CustomComparator cc = new CustomComparator();
-
-        PriorityQueue<Point> orders = new PriorityQueue<>(cc);
+        // 스시 타입 오름 차순 정렬, 만약 스시 타입이 같다면, 고객 번호 오름차순으로 정렬
+        PriorityQueue<Order> orders = new PriorityQueue<>(
+                (o1, o2) -> o1.sushiType == o2.sushiType ? o1.customer - o2.customer : o1.sushiType - o2.sushiType
+        );
 
         for (int i = 0; i < n; i++) {
             String[] tmp = br.readLine().split(" ");
             int k = Integer.parseInt(tmp[0]);
             for (int j = 1; j <= k; j++) {
-                orders.add(new Point(i, Integer.parseInt(tmp[j])));
+                orders.add(new Order(i, Integer.parseInt(tmp[j])));
             }
         }
 
         int[] sushies = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-
         PriorityQueue<Integer> q = new PriorityQueue<>();
         for (int i : sushies) {
             q.add(i);
@@ -47,27 +44,29 @@ public class Main {
 
         int[] answer = new int[n];
 
-        while (!q.isEmpty()) {
-            if (orders.isEmpty()) {
-                break;
-            }
+        while (!q.isEmpty() && !orders.isEmpty()) {
+            int sushi = q.peek();
+            Order order = orders.peek();
 
-            Integer tmp = q.peek();
-            Point p = orders.peek();
-
-            if (tmp != null) {
-                if (p.y == tmp) {
-                    answer[p.x]++;
-                    orders.poll();
-                    q.poll();
-                } else if (p.y > tmp) {
-                    q.poll();
-                } else {
-                    orders.poll();
-                }
+            if (order.sushiType == sushi) {
+                // 주문한 스시 타입과, 큐의 스시 타입이 같다면 해당 주문과 큐의 스시를 없앰
+                answer[order.customer]++;
+                orders.poll();
+                q.poll();
+            } else if (order.sushiType > sushi) {
+                // 주문한 스시 타입 보다, 큐의 스시 번호가 더 크다면 큐의 스시를 버림
+                q.poll();
+            } else {
+                // 주문한 스시 타입 보다, 큐의 스시 번호가 더 작다면 해당 주문을 버림
+                orders.poll();
             }
         }
 
-        System.out.println(Arrays.toString(answer).replaceAll("[,\\[\\]]", ""));
+        StringBuilder sb = new StringBuilder();
+        for (int value : answer) {
+            sb.append(value).append(" ");
+        }
+        System.out.println(sb.toString().trim());
+
     }
 }
