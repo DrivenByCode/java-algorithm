@@ -21,7 +21,10 @@ public class Main {
         sb.append("<");
         int idx = 0;
         while(!list.isEmpty()) {
+            // K번째 사람을 제거
             idx = (idx + K - 1) % list.size();
+            // remove(int index) : 이 버전은 지정된 인덱스의 요소를 제거하고 그 요소를 반환합니다.
+            // remove(Object o) : 이 버전은 지정된 객체와 일치하는 첫 번째 요소를 제거합니다. 성공 시 true, 실패 시 false 반환
             sb.append(list.remove(idx));
             if(!list.isEmpty()) sb.append(", ");
         }
