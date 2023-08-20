@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -32,27 +30,20 @@ public class Main {
             tree[b].add(a);
         }
 
-        bfs(1);
+        dfs(1);
 
         for (int i = 2; i <= N; i++) {
             System.out.println(parents[i]);
         }
     }
 
-    public static void bfs(int start) {
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(start);
-        visited[start] = true;
+    public static void dfs(int node) {
+        visited[node] = true;
 
-        while (!queue.isEmpty()) {
-            int current = queue.poll();
-
-            for (int child : tree[current]) {
-                if (!visited[child]) {
-                    parents[child] = current;
-                    visited[child] = true;
-                    queue.add(child);
-                }
+        for (int child : tree[node]) {
+            if (!visited[child]) {
+                parents[child] = node;
+                dfs(child);
             }
         }
     }
