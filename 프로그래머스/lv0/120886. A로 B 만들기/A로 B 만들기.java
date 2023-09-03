@@ -9,9 +9,10 @@ class Solution {
         Arrays.sort(beforeChars);
         Arrays.sort(afterChars);
         
-        if(Arrays.equals(beforeChars, afterChars)) {
-            answer = 1;
-        } 
+        String b = String.valueOf(beforeChars);
+        String a = String.valueOf(afterChars);
+        
+        answer = b.equals(a) ? 1 : 0;
         
         return answer;
     }
