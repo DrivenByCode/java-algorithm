@@ -63,19 +63,16 @@ public class Main {
 
         ArrayList<Location> city = new ArrayList<>();
 
-        boolean flag = false;
-
-        while (!flag) {
-            String line = br.readLine();
-            if (line == null || line.equals("0 0")) break; // 입력의 끝이거나 "0 0"을 만나면 종료
-
-            st = new StringTokenizer(line);
+        while (true) {
+            st = new StringTokenizer(br.readLine());
 
             // 집의 수 - 정점 수 (Vertex)
             int m = Integer.parseInt(st.nextToken());
 
             // 길의 수 - 간선 수 (Edges)
             int n = Integer.parseInt(st.nextToken());
+
+            if (m == 0 && n == 0) break;
 
             // city 초기화
             city.clear();
@@ -90,10 +87,6 @@ public class Main {
                 st = new StringTokenizer(br.readLine());
                 int x = Integer.parseInt(st.nextToken());
                 int y = Integer.parseInt(st.nextToken());
-                if (x == 0 && y == 0) {
-                    flag = true;
-                    break;
-                }
                 int value = Integer.parseInt(st.nextToken());
                 city.add(new Location(x, y, value));
                 maxValue += value;
