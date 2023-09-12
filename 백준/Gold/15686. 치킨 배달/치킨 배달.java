@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
+    // 크기가 n*n인 도시에서, 최소인 "도시의 치킨거리"를 구하기.
+    // 도시의 치킨 거리는 모든 집의 치킨거리 합임.
+    // m은 도시의 치킨 집 중에서 최대 m개의 치킨 집을 고를 수 있고, 나머지는 폐업
+    static int n, m;
     // 최소 치킨 거리 값을 저장할 변수
     static int answer = Integer.MAX_VALUE;
 
@@ -19,35 +23,28 @@ public class Main {
         }
     }
 
-    // 두 위치 사이의 맨해튼 거리를 계산하느 ㄴ함수
+    // 두 위치 사이의 맨해튼 거리를 계산하는 함수
     private static int getDistance(Location l1, Location l2) {
         return Math.abs(l1.x - l2.x) + Math.abs(l1.y - l2.y);
     }
 
-    private static void getMinDistance(ArrayList<Location> homes, ArrayList<Location> chickens, int level, int m, int start, int[] selectedNumbers) {
-//        System.out.println("getMinDistance(" + level + ", " + m + ")");
-        // M개의 치킨집을 선택했을 때의 치킨 거리 계산
+    private static void getMinDistance(ArrayList<Location> homes, ArrayList<Location> chickens, int level, int start, int[] selectedNumbers) {
         if (level == m) {
             int totalDistance = 0;
             for (Location home : homes) {
                 int minDistance = Integer.MAX_VALUE;
-                for (int selectNumber : selectedNumbers) {
-                    minDistance = Math.min(minDistance, getDistance(home, chickens.get(selectNumber)));
+                for (int selectedNum : selectedNumbers) {
+                    minDistance = Math.min(minDistance, getDistance(home, chickens.get(selectedNum)));
                 }
                 totalDistance += minDistance;
-                // 현재까지 계산한 거리가 이미 찾은 최소 거리보다 크다면 더 이상 계산할 필요가 없음
-                if (totalDistance > answer) {
-                    return;
-                }
+                if (totalDistance >= answer) return;
             }
-            answer = Math.min(totalDistance, answer);
+            answer = totalDistance;
             return;
         }
-
-        // 치킨집을 선택하는 조합을 구하는 부분
         for (int i = start; i < chickens.size(); i++) {
             selectedNumbers[level] = i;
-            getMinDistance(homes, chickens, level + 1, m, i + 1, selectedNumbers);
+            getMinDistance(homes, chickens, level + 1, i + 1, selectedNumbers);
         }
     }
 
@@ -55,8 +52,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
         int[] selectedNumbers = new int[m];
 
@@ -77,7 +74,7 @@ public class Main {
             }
         }
 
-        getMinDistance(homes, chickens, 0, m, 0, selectedNumbers);
+        getMinDistance(homes, chickens, 0, 0, selectedNumbers);
 
         System.out.println(answer);
     }
