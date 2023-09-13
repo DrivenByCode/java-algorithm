@@ -4,6 +4,10 @@ import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
+// 풀이 참고 https://gh402.tistory.com/32
+// >>>>>>>>>>> [[[[[[[[[[[
+// 최대힙         최소힙이 있다고 생각하고, 각각 좌측 우측에서 원소가 들어오고 그 반대에서 원소가 빠져나간다.
+// 이때 최대힙의 빠져나가는 부분에, 중앙값과 작은 값을 두는 것이 문제 풀이.
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
