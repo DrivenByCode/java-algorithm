@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Main {
     private static int n;
@@ -10,7 +8,6 @@ public class Main {
     private static char[][] map;
     private static int[] dx = {0, 0, -1, 1};
     private static int[] dy = {1, -1, 0, 0};
-    private static Queue<Point> q = new LinkedList<>();
 
     private static class Point {
         private final int x;
@@ -22,41 +19,31 @@ public class Main {
         }
     }
 
-    private static int bfs(Point p, boolean isBlind) {
-        q.clear();
-        q.add(p);
-        visited[p.x][p.y] = true;
-
-        while (!q.isEmpty()) {
-            Point now = q.poll();
-            int x = now.x;
-            int y = now.y;
-
+    private static void dfs(Point p, boolean isBlind) {
+        if (!visited[p.x][p.y]) {
+            visited[p.x][p.y] = true;
             for (int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
+                int nx = p.x + dx[i];
+                int ny = p.y + dy[i];
 
                 if (0 <= nx && nx < n && 0 <= ny && ny < n) {
                     if (!visited[nx][ny]) {
                         if (isBlind) {
-                            if ((map[x][y] == 'R' || map[x][y] == 'G') && (map[nx][ny] == 'R' || map[nx][ny] == 'G')) {
-                                q.add(new Point(nx, ny));
-                                visited[nx][ny] = true;
-                            } else if (map[x][y] == map[nx][ny]) {
-                                q.add(new Point(nx, ny));
-                                visited[nx][ny] = true;
+                            if ((map[p.x][p.y] == 'R' || map[p.x][p.y] == 'G') && (map[nx][ny] == 'R' || map[nx][ny] == 'G')) {
+                                dfs(new Point(nx, ny), isBlind);
+                            } else if (map[p.x][p.y] == map[nx][ny]) {
+                                dfs(new Point(nx, ny), isBlind);
+
                             }
                         } else {
-                            if (map[x][y] == map[nx][ny]) {
-                                q.add(new Point(nx, ny));
-                                visited[nx][ny] = true;
+                            if (map[p.x][p.y] == map[nx][ny]) {
+                                dfs(new Point(nx, ny), isBlind);
                             }
                         }
                     }
                 }
             }
         }
-        return 1;
     }
 
     public static void main(String[] args) throws IOException {
@@ -80,7 +67,8 @@ public class Main {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (!visited[i][j]) {
-                    normalCount += bfs(new Point(i, j), false);
+                    dfs(new Point(i, j), false);
+                    normalCount++;
                 }
             }
         }
@@ -96,7 +84,8 @@ public class Main {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (!visited[i][j]) {
-                    blindCount += bfs(new Point(i, j), true);
+                    dfs(new Point(i, j), true);
+                    blindCount++;
                 }
             }
         }
