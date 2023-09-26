@@ -10,12 +10,6 @@ public class Main {
     private static StringBuilder sb = new StringBuilder();
 
     private static void topologicalSort() {
-        int[] results = new int[n + 1];
-
-        for (int i = 1; i <= n; i++) {
-            results[i] = 1;
-        }
-
         Queue<Integer> q = new LinkedList<>();
 
         for (int j = 1; j <= n; j++) {
@@ -35,7 +29,6 @@ public class Main {
                 indegree[nextVertex]--;
                 if (indegree[nextVertex] == 0) {
                     q.add(nextVertex);
-                    results[nextVertex] = Math.max(results[nextVertex], results[nextVertex] + results[currentVertex]);
                 }
             }
         }
