@@ -25,6 +25,7 @@ public class Main {
                 for (int j = 1; j <= v; j++) {
                     if (dist[i][k] + dist[k][j] < dist[i][j]) {
                         dist[i][j] = Math.min(dist[i][k] + dist[k][j], dist[i][j]);
+                        // i == j는 사이클을 의미, dist[i][j] < min은 현재까지 발견된 사이클 중에서 최소 길이의 사이클을 찾는 것
                         if (i == j && dist[i][j] < min) {
                             min = dist[i][j];
                         }
