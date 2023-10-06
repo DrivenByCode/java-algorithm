@@ -59,7 +59,6 @@ public class Main {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
                 flag = false;
-                // i -> j 혹은 j -> i 거리를 알기만 하면 카운트
                 if (dist[i][j] == INF) {
                     if (dist[j][i] == INF) {
                         flag = false;
@@ -70,6 +69,7 @@ public class Main {
                     flag = true;
                 }
             }
+            // i -> j 혹은 j -> i 거리를 i 기준 모두 알면 카운트 -> 본인의 등수를 알 수 있음.
             if (flag) cnt++;
         }
 
