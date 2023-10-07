@@ -26,9 +26,12 @@ public class Main {
             int nx = x + dx[i];
             int ny = y + dy[i];
             if (0 <= nx && nx < r && 0 <= ny && ny < c) {
+                // 이미 방문했던 알파벳이 아니라면
                 if (visitedAlphabets[board[nx][ny] - 'A'] == 0) {
+                    // 해당 알파벳을 방문 처리
                     visitedAlphabets[board[nx][ny] - 'A']++;
                     dfs(nx, ny, pathLength + 1);
+                    // 방문 했던 알파벳을 미 방문 처리
                     visitedAlphabets[board[nx][ny] - 'A']--;
                 }
             }
