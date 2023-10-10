@@ -27,8 +27,8 @@ public class Main {
     }
 
     private static void dijkstra(int start, ArrayList<Edge>[] graph, int[] dist) {
-        // 우선순위 큐를 이용하여 어차피 단방향만 주어지지만 A -> X -> A 할 수 있는 경로만 들어온다고 했음.
-        // 따라서 1->3이 나오면 3 ->1도 나옴
+        // 우선순위 큐를 이용하여 어차피 단방향만 주어지지만 A -> X -> A 할 수 있는 경로만 들어온다고 주어짐
+        // 만약 X->A도 주어지면 PQ가 자동으로 시간순으로 정렬하여 주기 때문에 X까지 갈 때와 올 때 모두 최단거리를 계산가능
         PriorityQueue<Edge> pq = new PriorityQueue<>();
         pq.offer(new Edge(start, 0));
         dist[start] = 0;
@@ -92,3 +92,4 @@ public class Main {
         System.out.println(max);
     }
 }
+
