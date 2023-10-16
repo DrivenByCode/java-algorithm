@@ -12,13 +12,8 @@ public class Main {
     private static int max = Integer.MIN_VALUE;
 
     private static boolean isInLab(int x, int y) {
-        if (0 <= x && x < n && 0 <= y && y < m) {
-            return true;
-        } else {
-            return false;
-        }
+        return 0 <= x && x < n && 0 <= y && y < m;
     }
-
 
     private static void buildWall(int cnt) {
         // 3번 째 벽을 지으면 바이러스를 퍼트림
@@ -43,11 +38,13 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
+                // 현재 위치에 바이러스가 있으면 dfs로 바이러스를 퍼트림
                 if (lab[i][j] == 2) {
                     dfs(i, j, checked);
                 }
             }
         }
+        // 최댓값 갱신
         max = Math.max(max, countMaxSafeArea(checked));
     }
 
@@ -93,7 +90,6 @@ public class Main {
                 lab[i][j] = Integer.parseInt(st.nextToken());
             }
         }
-
 
         buildWall(0);
 
