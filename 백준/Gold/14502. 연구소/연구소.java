@@ -34,7 +34,7 @@ public class Main {
     }
 
     private static void spreadVirus() {
-        checked = new boolean[n + 1][m + 1];
+        checked = new boolean[n][m];
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -82,7 +82,7 @@ public class Main {
         n = Integer.parseInt(st.nextToken()); // 세로의 길이 - 행
         m = Integer.parseInt(st.nextToken()); // 가로의 길이 - 열
 
-        lab = new int[n + 1][m + 1];
+        lab = new int[n][m];
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
