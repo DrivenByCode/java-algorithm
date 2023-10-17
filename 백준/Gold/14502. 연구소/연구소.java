@@ -8,7 +8,6 @@ public class Main {
     private static int[][] lab;
     private static final int[] dx = {0, 1, 0, -1}; // 상 우 하 좌
     private static final int[] dy = {1, 0, -1, 0}; // 상 우 하 좌
-    private static boolean[][] checked; // 벽을 세우거나 바이러스가 퍼짐을 나타냄.
     private static int max = Integer.MIN_VALUE;
 
     private static boolean isInLab(int x, int y) {
@@ -34,7 +33,7 @@ public class Main {
     }
 
     private static void spreadVirus() {
-        checked = new boolean[n][m];
+        boolean[][] checked = new boolean[n][m]; // 벽을 세우거나 바이러스가 퍼짐을 나타냄.
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
