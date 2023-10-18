@@ -94,9 +94,9 @@ public class Main {
 
         // 층수
         for (int k = 0; k < h; k++) {
-            // 가로
+            // 행(세로)
             for (int i = 0; i < n; i++) {
-                // 세로
+                // 열(가로)
                 for (int j = 0; j < m; j++) {
                     if (map[i][j][k] == 1) {
                         queue.add(new Point(i, j, k));
