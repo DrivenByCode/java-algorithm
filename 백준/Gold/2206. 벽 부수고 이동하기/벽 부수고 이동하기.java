@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 public class Main {
     private static int[] dx = {0, 1, 0, -1}; // 상 우 좌 하
     private static int[] dy = {1, 0, -1, 0};
-    private static char[][] map;
+    private static int[][] map;
     private static int n, m;
     private static boolean[][][] visited;
     private static int min = Integer.MAX_VALUE;
@@ -17,7 +17,7 @@ public class Main {
         private final int x;
         private final int y;
         private final int distance;
-        private final int breakCount;
+        private final int breakCount; // 1이면 해당 자리 벽을 부셨음을 의미
 
         private Point(int x, int y, int distance, int breakCount) {
             this.x = x;
@@ -28,12 +28,12 @@ public class Main {
     }
 
     private static int bfs() {
-        Queue<Point> q = new LinkedList<>();
+        Queue<Point> queue = new LinkedList<>();
         // 시작하는 칸도 포함
-        q.offer(new Point(0, 0, 1, 0));
+        queue.offer(new Point(0, 0, 1, 0));
         visited[0][0][0] = true;
-        while (!q.isEmpty()) {
-            Point currentNode = q.poll();
+        while (!queue.isEmpty()) {
+            Point currentNode = queue.poll();
             int x = currentNode.x;
             int y = currentNode.y;
             if (x == n - 1 && y == m - 1) {
@@ -44,14 +44,14 @@ public class Main {
                 int nx = x + dx[i];
                 int ny = y + dy[i];
                 if (0 <= nx && nx < n && 0 <= ny && ny < m) {
-                    if (map[nx][ny] == '0' && !visited[nx][ny][currentNode.breakCount]) {
+                    if (map[nx][ny] == 0 && !visited[nx][ny][currentNode.breakCount]) {
                         visited[nx][ny][currentNode.breakCount] = true;
-                        q.offer(new Point(nx, ny, currentNode.distance + 1, currentNode.breakCount));
+                        queue.offer(new Point(nx, ny, currentNode.distance + 1, currentNode.breakCount));
                     }
-                    if (map[nx][ny] == '1' && !visited[nx][ny][1]) {
+                    if (map[nx][ny] == 1 && !visited[nx][ny][1]) {
                         if (currentNode.breakCount == 0) {
                             visited[nx][ny][1] = true;
-                            q.offer(new Point(nx, ny, currentNode.distance + 1, 1));
+                            queue.offer(new Point(nx, ny, currentNode.distance + 1, 1));
                         }
                     }
                 }
@@ -68,13 +68,13 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        map = new char[n][m];
-        visited = new boolean[n][m][2];
+        map = new int[n][m];
+        visited = new boolean[n][m][2]; // 2는 해당 벽을 부신적 있는지 여부를 나타냄. 만약 visited[nx][ny][1]이 true면 부신 적 있는 것.
 
         for (int i = 0; i < n; i++) {
             String line = br.readLine();
             for (int j = 0; j < m; j++) {
-                map[i][j] = line.charAt(j);
+                map[i][j] = line.charAt(j) - '0';
             }
         }
 
