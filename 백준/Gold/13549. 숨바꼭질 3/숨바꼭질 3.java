@@ -51,17 +51,17 @@ public class Main {
             if (now == end) return time;
 
             if (isInMaxRange(now * 2) && time < times[now * 2]) {
-                times[now * 2] = Math.min(times[now * 2], time);
+                times[now * 2] = time;
                 queue.offer(new Position(now * 2, time));
             }
 
             if (isInMaxRange(now + 1) && time + 1 < times[now + 1]) {
-                times[now + 1] = Math.min(times[now + 1], time + 1);
+                times[now + 1] = time + 1;
                 queue.offer(new Position(now + 1, time + 1));
             }
 
             if (isInMaxRange(now - 1) && time + 1 < times[now - 1]) {
-                times[now - 1] = Math.min(times[now - 1], time + 1);
+                times[now - 1] = time + 1;
                 queue.offer(new Position(now - 1, time + 1));
             }
         }
