@@ -17,7 +17,7 @@ public class Main {
         private final int x;
         private final int y;
         private final int distance;
-        private final int breakCount; // 1이면 해당 자리 벽을 부셨음을 의미
+        private final int breakCount; // 벽을 깬 횟수, 최대 한번만 깰 수 있음
 
         private Point(int x, int y, int distance, int breakCount) {
             this.x = x;
@@ -69,7 +69,7 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
 
         map = new int[n][m];
-        visited = new boolean[n][m][2]; // 2는 해당 벽을 부신적 있는지 여부를 나타냄. 만약 visited[nx][ny][1]이 true면 부신 적 있는 것.
+        visited = new boolean[n][m][2]; // 만약 visited[nx][ny][1]이 true면 부신 적 있는 것.
 
         for (int i = 0; i < n; i++) {
             String line = br.readLine();
