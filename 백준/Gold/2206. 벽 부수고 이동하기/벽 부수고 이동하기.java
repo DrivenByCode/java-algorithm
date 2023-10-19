@@ -11,7 +11,6 @@ public class Main {
     private static int[][] map;
     private static int n, m;
     private static boolean[][][] visited;
-    private static int min = Integer.MAX_VALUE;
 
     private static class Point {
         private final int x;
