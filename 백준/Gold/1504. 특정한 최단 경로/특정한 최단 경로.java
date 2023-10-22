@@ -79,11 +79,12 @@ public class Main {
         }
 
         st = new StringTokenizer(br.readLine());
+        // 1번 부터 v1, v2를 반드시 거쳐 n까지 도달 하는 최소 경로를 구해야함.
         int v1 = Integer.parseInt(st.nextToken());
         int v2 = Integer.parseInt(st.nextToken());
 
-        int path1 = 0;
-        int path2 = 0;
+        int path1 = 0; // 1 -> v1 -> v2 -> n
+        int path2 = 0; // 1 -> v2 -> v1 -> n
 
         int dist1 = dijkstra(1, v1);
         int dist2 = dijkstra(v1, v2);
@@ -91,7 +92,8 @@ public class Main {
         int dist4 = dijkstra(1, v2);
         int dist5 = dijkstra(v2, v1);
         int dist6 = dijkstra(v1, n);
-
+        
+        // 전체 경로 중 일부 경로가 -1이 나오면 전체 경로는 -1
         if (dist1 == -1 || dist2 == -1 || dist3 == -1) {
             path1 = -1;
         } else {
