@@ -36,19 +36,20 @@ public class Main {
 
         Arrays.sort(array);
 
-        int min = 1;
-        int max = array[n - 1] - array[0];
+        int min = 1; // 문제에서 하나 이상의 빈칸을 두고 주어지기 때문에 최솟값은 1
+        int max = array[n - 1] - array[0] + 1; // Upper bound이기 때문에 + 1 해줌
 
-        while (min <= max) {
+        while (min < max) {
             int mid = (min + max) / 2;
 
             if (getCount(mid) < c) {
-                max = mid - 1;
+                max = mid;
             } else {
                 min = mid + 1;
             }
         }
 
-        System.out.println(max);
+        // Upper Bound는 값을 초과하는 첫 번쨰 값을 가리키므로, 1을 빼준 값이 조건을 만족하는 최대 값임
+        System.out.println(min - 1);
     }
 }
