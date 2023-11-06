@@ -22,7 +22,9 @@ public class Main {
         for (int i = 0; i < n; i++) {
             // 몇개를 선택 하든 가장 처음에 선택한 로프가 감당할 수 있는 무게 * 선택한 로프의 개수가 최대 무게
             int weight = sotredArr[i] * (i + 1);
-            maxWeight = Math.max(maxWeight, weight);
+            if (maxWeight < weight) {
+                maxWeight = weight;
+            }
         }
 
         System.out.println(maxWeight);
