@@ -29,7 +29,7 @@ public class Main {
 
         while (!q.isEmpty()) {
             int currentVertex = q.poll();
-            for (int nextVertex : map[currentVertex]) {
+            for (final int nextVertex : map[currentVertex]) {
                 indegree[nextVertex]--;
                 if (indegree[nextVertex] == 0) {
                     q.add(nextVertex);
@@ -65,13 +65,13 @@ public class Main {
             indegree[y]++;
         }
 
-        int[] results = topologicalSort();
+        final int[] results = topologicalSort();
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < results.length; i++) {
-            sb.append(results[i] + " ");
+        final StringBuilder sb = new StringBuilder();
+        for (int k = 1; k < results.length; k++) {
+            sb.append(results[k] + " ");
         }
 
-        System.out.println(sb);
+        System.out.println(sb.toString().trim());
     }
 }
