@@ -2,37 +2,33 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
 
 public class Main {
     private static int[] arr;
     private static int[] selectedNumbers;
-    private static boolean[] visited;
-    private static final StringBuilder sb = new StringBuilder();
-    private static final Set<String> generatedSequences = new HashSet<>();
+    private static boolean[] visitedIndex;
+    private static final LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
+    private static StringBuilder sb;
     private static int n, m;
 
     private static void dfs(int level) {
         if (level == m) {
-            String sequence = Arrays.toString(selectedNumbers);
-            if (!generatedSequences.contains(sequence)) {
-                generatedSequences.add(sequence);
-                for (int num : selectedNumbers) {
-                    sb.append(num).append(" ");
-                }
-                sb.append("\n");
+            sb = new StringBuilder();
+            for (final int num : selectedNumbers) {
+                sb.append(num).append(" ");
             }
+            linkedHashSet.add(sb.toString().trim());
             return;
         }
 
         for (int i = 0; i < n; i++) {
-            if (!visited[i]) {
-                visited[i] = true;
+            if (!visitedIndex[i]) {
+                visitedIndex[i] = true;
                 selectedNumbers[level] = arr[i];
                 dfs(level + 1);
-                visited[i] = false;
+                visitedIndex[i] = false;
             }
         }
     }
@@ -44,14 +40,17 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        arr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        Arrays.sort(arr);
+        arr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).sorted().toArray();
 
         selectedNumbers = new int[m];
-        visited = new boolean[n];
+        visitedIndex = new boolean[n];
 
         dfs(0);
 
-        System.out.println(sb.toString().trim());
+        sb = new StringBuilder();
+        for (String str : linkedHashSet) {
+            sb.append(str).append("\n");
+        }
+        System.out.print(sb.toString().trim());
     }
 }
