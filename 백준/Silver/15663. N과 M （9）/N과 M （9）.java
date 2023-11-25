@@ -2,33 +2,36 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
     private static int[] arr;
     private static int[] selectedNumbers;
-    private static boolean[] visitedIndex;
-    private static final LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
-    private static StringBuilder sb;
+    private static boolean[] visited;
+    private static final StringBuilder sb = new StringBuilder();
+    private static final Set<String> generatedSequences = new HashSet<>();
     private static int n, m;
 
     private static void dfs(int level) {
         if (level == m) {
-            sb = new StringBuilder();
-            for (final int num : selectedNumbers) {
-                sb.append(num).append(" ");
+            String sequence = Arrays.toString(selectedNumbers);
+            if (generatedSequences.add(sequence)) {
+                for (final int num : selectedNumbers) {
+                    sb.append(num).append(" ");
+                }
+                sb.append("\n");
             }
-            linkedHashSet.add(sb.toString().trim());
             return;
         }
 
         for (int i = 0; i < n; i++) {
-            if (!visitedIndex[i]) {
-                visitedIndex[i] = true;
+            if (!visited[i]) {
+                visited[i] = true;
                 selectedNumbers[level] = arr[i];
                 dfs(level + 1);
-                visitedIndex[i] = false;
+                visited[i] = false;
             }
         }
     }
@@ -43,14 +46,10 @@ public class Main {
         arr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).sorted().toArray();
 
         selectedNumbers = new int[m];
-        visitedIndex = new boolean[n];
+        visited = new boolean[n];
 
         dfs(0);
 
-        sb = new StringBuilder();
-        for (String str : linkedHashSet) {
-            sb.append(str).append("\n");
-        }
-        System.out.print(sb.toString().trim());
+        System.out.println(sb.toString().trim());
     }
 }
