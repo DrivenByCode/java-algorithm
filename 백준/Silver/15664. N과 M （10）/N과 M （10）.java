@@ -16,10 +16,9 @@ public class Main {
 
     private static void dfs(int level, int start) {
         if (level == m) {
-            String sequence = Arrays.toString(selectedNumbers);
-            if (!generatedSequences.contains(sequence)) {
-                generatedSequences.add(sequence);
-                for (int num : selectedNumbers) {
+            final String sequence = Arrays.toString(selectedNumbers);
+            if (generatedSequences.add(sequence)) {
+                for (final int num : selectedNumbers) {
                     sb.append(num).append(" ");
                 }
                 sb.append("\n");
@@ -44,8 +43,7 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        arr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        Arrays.sort(arr);
+        arr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).sorted().toArray();
 
         selectedNumbers = new int[m];
         visited = new boolean[n];
