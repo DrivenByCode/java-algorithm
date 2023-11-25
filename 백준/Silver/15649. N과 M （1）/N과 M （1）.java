@@ -13,7 +13,7 @@ public class Main {
 
     private static void dfs(int level) {
         if (level == m) {
-            for (int num : selectedNumbers) {
+            for (final int num : selectedNumbers) {
                 sb.append(num).append(" ");
             }
             sb.append("\n");
