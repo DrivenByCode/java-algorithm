@@ -1,15 +1,13 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        ArrayList<String> species = new ArrayList<>();
         HashMap<String, Integer> speciesCount = new HashMap<>();
         int totalCount = 0;
 
@@ -19,24 +17,19 @@ public class Main {
                 break;
             }
 
-            if (!species.contains(input)) {
-                species.add(input);
-            }
             speciesCount.put(input, speciesCount.getOrDefault(input, 0) + 1);
             totalCount++;
         }
 
-        Collections.sort(species);
-
         StringBuilder sb = new StringBuilder();
 
+        final int total = totalCount;
 
-        for (final String s : species) {
-            final float proportion = (float) speciesCount.get(s) / totalCount;
+        speciesCount.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> {
+            final float proportion = (float) entry.getValue() / total;
             final float roundedResult = Math.round(proportion * 1000000) / 10000f;
-
-            sb.append(s).append(" ").append(String.format("%.4f", roundedResult)).append("\n");
-        }
+            sb.append(entry.getKey()).append(" ").append(String.format("%.4f", roundedResult)).append("\n");
+        });
 
         System.out.println(sb.toString().trim());
     }
