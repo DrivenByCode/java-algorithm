@@ -28,9 +28,9 @@ public class Main {
     }
 
     private static int bfs(final int x, final int y) {
-        final Point startPoint = new Point(x, y);
+        Point startPoint = new Point(x, y);
         int count = 1;
-        final Queue<Point> queue = new LinkedList<>();
+        Queue<Point> queue = new LinkedList<>();
         queue.offer(startPoint);
         while (!queue.isEmpty()) {
             Point currentNode = queue.poll();
@@ -53,7 +53,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
 
         map = new int[n][n];
@@ -68,7 +68,7 @@ public class Main {
 
         br.close();
 
-        final ArrayList<Integer> buildingComplex = new ArrayList<>();
+        ArrayList<Integer> buildingComplex = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (map[i][j] == 1 && !visited[i][j]) {
@@ -78,7 +78,7 @@ public class Main {
             }
         }
 
-        final StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append(buildingComplex.size()).append("\n");
 
         Collections.sort(buildingComplex);
@@ -90,4 +90,3 @@ public class Main {
         System.out.println(sb.toString().trim());
     }
 }
-
