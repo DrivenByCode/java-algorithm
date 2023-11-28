@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Main {
-    private static int[] dx = {0, 1, 0, -1}; // 위에서 부터 시계 방향
-    private static int[] dy = {1, 0, -1, 0}; // 위에서 부터 시계 방향
+    private static final int[] dx = {0, 1, 0, -1}; // 위에서 부터 시계 방향
+    private static final int[] dy = {1, 0, -1, 0}; // 위에서 부터 시계 방향
     private static int[][] map;
     private static boolean[][] visited;
     private static int n;
