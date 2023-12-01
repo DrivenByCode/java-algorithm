@@ -14,7 +14,7 @@ public class Main {
     }
 
     private static class Trie {
-        private TrieNode root;
+        private final TrieNode root;
 
         private Trie() {
             root = new TrieNode();
