@@ -55,6 +55,9 @@ public class Main {
             for (int i = 0; i < 26; i++) {
                 if (node.children[i] != null) {
                     count++;
+                    if (count >= 2) {
+                        return count;
+                    }
                 }
             }
             return count;
