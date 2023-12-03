@@ -12,10 +12,14 @@ public class Main {
 
         char tmp = input.charAt(0);
         if (Character.isLowerCase(tmp)) {
+            // 문자입력
             dp[0][0] = 1;
+            // 문자입력 + 마름모입력
             dp[0][1] = 2;
         } else {
+            // 문자입력 + 별 입력
             dp[0][0] = 2;
+            // 마름모 입력 + 문자입력
             dp[0][1] = 2;
         }
 
