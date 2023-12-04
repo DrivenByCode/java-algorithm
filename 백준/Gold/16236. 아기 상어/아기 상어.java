@@ -7,12 +7,13 @@ import java.util.StringTokenizer;
 public class Main {
     private static int[][] space;
     private static int n;
-    private static final int[] dx = {-1, 0, 0, 1}; // 상, 좌, 우, 하 순서로 변경
+    private static final int[] dx = {-1, 0, 0, 1}; // 상, 좌, 우, 하
     private static final int[] dy = {0, -1, 1, 0};
     private static Point shark; // 아기 상어의 위치를 저장하는 변수
+    private static boolean[][] visited; // 방문 기록을 저장
 
     private static class Point implements Comparable<Point> {
-        int x, y, dist; // 거리(dist) 필드 추가
+        int x, y, dist;
 
         Point(int x, int y, int dist) {
             this.x = x;
@@ -40,7 +41,7 @@ public class Main {
         int sharkSize = 2, ateFishes = 0, time = 0;
         Point target;
         do {
-            boolean[][] visited = new boolean[n][n]; // 방문 배열 초기화
+            visited = new boolean[n][n];
             PriorityQueue<Point> queue = new PriorityQueue<>();
             queue.offer(new Point(shark.x, shark.y, 0));
             visited[shark.x][shark.y] = true;
