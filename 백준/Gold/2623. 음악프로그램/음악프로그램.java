@@ -1,6 +1,20 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+<<<<<<< HEAD
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main {
+    private static ArrayList<Integer>[] singers;
+    private static int[] indegree;
+    private static int n, m;
+
+    private static ArrayList<Integer> topologicalSort() {
+        ArrayList<Integer> results = new ArrayList<>();
+=======
 import java.util.*;
 
 public class Main {
@@ -11,6 +25,7 @@ public class Main {
 
     private static List<Integer> topologicalSort() {
         List<Integer> results = new ArrayList<>();
+>>>>>>> java-algorithm/master
 
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 1; i <= n; i++) {
@@ -22,8 +37,12 @@ public class Main {
         while (!queue.isEmpty()) {
             int currentVertex = queue.poll();
             results.add(currentVertex);
+<<<<<<< HEAD
+            for (int nextVertex : singers[currentVertex]) {
+=======
 
             for (final int nextVertex : orders[currentVertex]) {
+>>>>>>> java-algorithm/master
                 indegree[nextVertex]--;
                 if (indegree[nextVertex] == 0) {
                     queue.offer(nextVertex);
@@ -41,6 +60,28 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
+<<<<<<< HEAD
+        singers = new ArrayList[n + 1];
+        indegree = new int[n + 1];
+
+        for (int i = 1; i <= n; i++) {
+            singers[i] = new ArrayList<>();
+        }
+
+        for (int i = 0; i < m; i++) {
+            String[] inputs = br.readLine().split(" ");
+            for (int j = 1; j < inputs.length - 1; j++) {
+                int x = Integer.parseInt(inputs[j]);
+                int y = Integer.parseInt(inputs[j + 1]);
+                singers[x].add(y);
+                indegree[y]++;
+            }
+        }
+
+        ArrayList<Integer> results = topologicalSort();
+
+        // 사이클이 있는 경우
+=======
         indegree = new int[n + 1];
         orders = new ArrayList[n + 1];
 
@@ -63,15 +104,22 @@ public class Main {
 
         final List<Integer> results = topologicalSort();
 
+>>>>>>> java-algorithm/master
         if (results.size() != n) {
             System.out.println(0);
             return;
         }
+<<<<<<< HEAD
+        for (int i : results) {
+            System.out.println(i);
+        }
+=======
 
         for (final int result : results) {
             sb.append(result).append("\n");
         }
 
         System.out.println(sb.toString().trim());
+>>>>>>> java-algorithm/master
     }
 }
