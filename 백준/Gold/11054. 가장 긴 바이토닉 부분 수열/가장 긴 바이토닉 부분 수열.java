@@ -12,20 +12,20 @@ public class Main {
         int[] increasingDp = new int[n];
         int[] decreasingDp = new int[n];
 
+        Arrays.fill(increasingDp, 1);
         for (int i = 0; i < n; i++) {
-            increasingDp[i] = 1;
             for (int j = 0; j < i; j++) {
-                if (arr[j] < arr[i] && increasingDp[i] < increasingDp[j] + 1) {
-                    increasingDp[i] = increasingDp[j] + 1;
+                if (arr[j] < arr[i]) {
+                    increasingDp[i] = Math.max(increasingDp[i], increasingDp[j] + 1);
                 }
             }
         }
 
+        Arrays.fill(decreasingDp, 1);
         for (int i = n - 1; i >= 0; i--) {
-            decreasingDp[i] = 1;
             for (int j = n - 1; j > i; j--) {
-                if (arr[j] < arr[i] && decreasingDp[i] < decreasingDp[j] + 1) {
-                    decreasingDp[i] = decreasingDp[j] + 1;
+                if (arr[j] < arr[i]) {
+                    decreasingDp[i] = Math.max(decreasingDp[i], decreasingDp[j] + 1);
                 }
             }
         }
