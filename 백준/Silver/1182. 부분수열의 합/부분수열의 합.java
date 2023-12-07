@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
@@ -17,7 +16,7 @@ public class Main {
 
         int answer = 0;
         for (int i = 0; i < (1 << n); i++) {
-            ArrayList<Integer> list = new ArrayList<>();
+            int sum = 0;
             for (int j = 0; j < n; j++) {
                 // 5개의 원소가 있다고 하면
                 // [0, 0, 0, 0, 0]
@@ -26,17 +25,14 @@ public class Main {
                 // 하나 이상을 선택했다는 의미
                 // 이 방식으로 부분집합의 총 갯수를 구할 수 있다.
                 if ((i & (1 << j)) != 0) {
-                    list.add(arr[j]);
+                    sum += arr[j];
                 }
             }
-            if (list.stream().mapToInt(Integer::intValue).sum() == s) {
-                if (!list.isEmpty()) {
-                    answer++;
-                    list.clear();
-                }
+            if (sum == s) {
+                answer++;
             }
         }
 
-        System.out.println(answer);
+        System.out.println(s == 0 ? answer - 1 : answer);
     }
 }
