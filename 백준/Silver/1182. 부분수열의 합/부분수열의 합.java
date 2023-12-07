@@ -31,7 +31,7 @@ public class Main {
 
         calculateSubsequenceSum(0, 0);
 
-        // 공집합의 합일 경우 count 하나 제거
+        // s가 0일 경우, 공집합의 합도 계산하므로 count 하나 제거
         if (s == 0) {
             count--;
         }
