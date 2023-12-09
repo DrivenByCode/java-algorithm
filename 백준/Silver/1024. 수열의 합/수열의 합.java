@@ -17,7 +17,7 @@ public class Main {
 
         for (int i = l; i < 101; i++) {
             long lt = 0;
-            long rt = n + 1;
+            long rt = n / l + 1;
 
             while (lt < rt) {
                 long mid = (lt + rt) / 2;
@@ -39,3 +39,4 @@ public class Main {
         System.out.println(Arrays.toString(answer).replaceAll("[\\[\\],]", ""));
     }
 }
+
