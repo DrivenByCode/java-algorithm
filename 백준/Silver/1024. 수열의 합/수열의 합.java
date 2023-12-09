@@ -15,23 +15,23 @@ public class Main {
 
         int[] answer = {-1};
 
-        for (int i = l; i < 101; i++) {
+        for (int len = l; len < 101; len++) {
             long lt = 0;
-            long rt = n / l + 1;
+            long rt = n / len + 1;
 
             while (lt < rt) {
                 long mid = (lt + rt) / 2;
-                long sum = ((mid + mid + i - 1) * i) / 2;
+                long sum = ((mid + mid + len - 1) * len) / 2;
 
                 if (sum > n) {
                     rt = mid;
                 } else {
-                    lt = mid + 1;
                     if (sum == n) {
-                        answer = IntStream.range((int) mid, (int) mid + i).toArray();
+                        answer = IntStream.range((int) mid, (int) mid + len).toArray();
                         System.out.println(Arrays.toString(answer).replaceAll("[\\[\\],]", ""));
                         return;
                     }
+                    lt = mid + 1;
                 }
             }
         }
