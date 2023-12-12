@@ -6,18 +6,18 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static long target;
+    private static int target;
     private static boolean[] visited = new boolean[(int) 1e9 + 1];
 
     private static int bfs(long number) {
-        Queue<Long> queue = new LinkedList<>();
-        queue.offer(number);
+        Queue<Long> numbers = new LinkedList<>();
+        numbers.offer(number);
         visited[(int) number] = true;
         int count = 0;
-        while (!queue.isEmpty()) {
-            int size = queue.size();
+        while (!numbers.isEmpty()) {
+            int size = numbers.size();
             for (int i = 0; i < size; i++) {
-                long num = queue.poll();
+                long num = numbers.poll();
 
                 if (num == target) {
                     return count + 1;
@@ -25,11 +25,11 @@ public class Main {
 
                 if (num * 2 <= target && !visited[(int) (num * 2)]) {
                     visited[(int) (num * 2)] = true;
-                    queue.offer(num * 2);
+                    numbers.offer(num * 2);
                 }
                 if (num * 10 + 1 <= target && !visited[(int) (num * 10 + 1)]) {
                     visited[(int) (num * 10 + 1)] = true;
-                    queue.offer(num * 10 + 1);
+                    numbers.offer(num * 10 + 1);
                 }
             }
             count++;
@@ -41,8 +41,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        long a = Long.parseLong(st.nextToken());
-        target = Long.parseLong(st.nextToken());
+        int a = Integer.parseInt(st.nextToken());
+        target = Integer.parseInt(st.nextToken());
 
         System.out.println(bfs(a));
     }
