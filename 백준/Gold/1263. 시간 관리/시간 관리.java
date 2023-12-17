@@ -16,24 +16,9 @@ public class Main {
 
         @Override
         public int compareTo(Work other) {
-            if (this.deadline == other.deadline) {
-                return this.duration - other.duration;
-            }
-            return this.deadline - other.deadline;
+            // 마감 시간이 늦은 것부터 정렬
+            return other.deadline - this.deadline;
         }
-    }
-
-    private static int getMaxStartTime(PriorityQueue<Work> workProcess, int time) {
-        int startTime = time;
-        while (!workProcess.isEmpty()) {
-            Work currentWork = workProcess.poll();
-            if (startTime + currentWork.duration <= currentWork.deadline) {
-                startTime += currentWork.duration;
-            } else {
-                return -1;
-            }
-        }
-        return time;
     }
 
     public static void main(String[] args) throws IOException {
@@ -49,22 +34,16 @@ public class Main {
             workProcess.offer(new Work(duration, deadline));
         }
 
-        int max = -2;
-        for (int time = 0; time < 1000001; time++) {
-            PriorityQueue<Work> tmpPq = new PriorityQueue<>();
-            tmpPq.addAll(workProcess);
-            int num = getMaxStartTime(tmpPq, time);
-            if (num == -1) {
-                max = Math.max(max, num);
-                System.out.println(max);
+        int currentTime = Integer.MAX_VALUE;
+        while (!workProcess.isEmpty()) {
+            Work currentWork = workProcess.poll();
+            currentTime = Math.min(currentTime, currentWork.deadline) - currentWork.duration;
+            if (currentTime < 0) {
+                System.out.println(-1);
                 return;
             }
-
-            max = Math.max(max, num);
         }
 
-
-        System.out.println(max);
+        System.out.println(currentTime);
     }
 }
-
