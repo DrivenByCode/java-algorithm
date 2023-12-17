@@ -16,9 +16,12 @@ public class Main {
 
         @Override
         public int compareTo(Work other) {
-            // 마감 시간이 늦은 것부터 정렬
-            return other.deadline - this.deadline;
+            if (this.deadline == other.deadline) {
+                return this.duration - other.duration; // 동일한 마감 시간일 경우, 지속 시간이 짧은 순으로 정렬
+            }
+            return other.deadline - this.deadline; // 마감 시간이 늦은 것부터 정렬
         }
+
     }
 
     public static void main(String[] args) throws IOException {
