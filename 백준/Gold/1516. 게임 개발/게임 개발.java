@@ -23,7 +23,7 @@ public class Main {
                 queue.offer(i);
             }
         }
-        
+
         while (!queue.isEmpty()) {
             int currentOrder = queue.poll();
             for (final int nextOrder : buildingProcess[currentOrder]) {
@@ -31,6 +31,8 @@ public class Main {
                 if (indegree[nextOrder] == 0) {
                     queue.offer(nextOrder);
                 }
+
+                // results[currentOrder] 는 사전에 지어야 할 건물 건설 시간 중 가장 큰 값을 저장함
                 results[nextOrder] = Math.max(results[nextOrder], results[currentOrder] + times[nextOrder]);
             }
         }
@@ -50,7 +52,6 @@ public class Main {
             buildingProcess[i] = new ArrayList<>();
         }
 
-
         StringTokenizer st;
 
         for (int i = 1; i <= n; i++) {
@@ -69,8 +70,11 @@ public class Main {
 
         int[] results = topologySort();
 
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= n; i++) {
-            System.out.println(results[i]);
+            sb.append(results[i]).append("\n");
         }
+
+        System.out.println(sb.toString().trim());
     }
 }
