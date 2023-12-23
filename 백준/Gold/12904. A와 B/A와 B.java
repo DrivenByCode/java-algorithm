@@ -13,9 +13,11 @@ public class Main {
             deque.offer(c);
         }
 
+        char c = ' ';
+
         while (!deque.isEmpty()) {
             if (deque.size() == s.length()) {
-                StringBuilder word = new StringBuilder(deque.toString().replaceAll("[\\[\\], ]", ""));
+                StringBuffer word = new StringBuffer(deque.toString().replaceAll("[\\[\\], ]", ""));
                 if (isReversed) {
                     word = word.reverse();
                 }
@@ -24,7 +26,6 @@ public class Main {
                 }
                 return 0;
             }
-            char c = ' ';
             if (isReversed) {
                 c = deque.poll();
             } else {
