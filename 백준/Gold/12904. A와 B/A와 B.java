@@ -8,9 +8,8 @@ public class Main {
     private static int isMakeWord(String s, String t) {
         boolean isReversed = false;
         Deque<Character> deque = new ArrayDeque<>();
-        char[] chars = t.toCharArray();
 
-        for (char c : chars) {
+        for (char c : t.toCharArray()) {
             deque.offer(c);
         }
 
@@ -25,18 +24,14 @@ public class Main {
                 }
                 return 0;
             }
+            char c = ' ';
             if (isReversed) {
-                char c = deque.peek();
-                if (c == 'B') {
-                    isReversed = !isReversed;
-                }
-                deque.poll();
+                c = deque.poll();
             } else {
-                char c = deque.peekLast();
-                if (c == 'B') {
-                    isReversed = !isReversed;
-                }
-                deque.pollLast();
+                c = deque.pollLast();
+            }
+            if (c == 'B') {
+                isReversed = !isReversed;
             }
         }
 
