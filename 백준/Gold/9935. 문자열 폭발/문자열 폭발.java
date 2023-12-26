@@ -17,6 +17,7 @@ public class Main {
             if (stack.size() >= bombWord.length()) {
                 boolean foundBomb = true;
                 for (int j = 0; j < bombWord.length(); j++) {
+                    // stack.size() - bombWord.length() + j -> 스택 최상단에서 부터 bombWord.length()의 길이 만큼 아래에 있는 위치 부터 시작하여, 각 반복에서 한 칸씩 위로 이동하며 요소를 가져옴.
                     if (stack.get(stack.size() - bombWord.length() + j) != bombWord.charAt(j)) {
                         foundBomb = false;
                         break;
