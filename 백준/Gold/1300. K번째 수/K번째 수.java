@@ -9,13 +9,13 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
         int k = Integer.parseInt(br.readLine());
 
-        long low = 1;
-        long high = k;
+        int low = 1;
+        int high = k + 1;
 
         while (low < high) {
-            long mid = low + (high - low) / 2;
+            int mid = low + (high - low) / 2;
 
-            long count = 0;
+            int count = 0;
             for (int i = 1; i <= n; i++) {
                 count += Math.min(mid / i, n);
             }
