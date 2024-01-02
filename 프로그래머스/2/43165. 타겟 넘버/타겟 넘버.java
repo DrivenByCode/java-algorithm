@@ -1,13 +1,19 @@
-import java.util.*;
 class Solution {
-        private int dfs(int level, int[] numbers, int target, int sum) {
+    private static int count = 0;
+    public static void dfs(int level, int sum, int target, int[] numbers) {
         if(level == numbers.length) {
-            return sum == target ? 1 : 0;
+            if(sum == target) {
+                count++;
+            }
+            return;
         }
-        return dfs(level + 1, numbers, target, sum + numbers[level]) 
-             + dfs(level + 1, numbers, target, sum - numbers[level]);
+        
+
+        dfs(level + 1, sum - numbers[level], target, numbers);
+        dfs(level + 1, sum + numbers[level], target, numbers);
     }
     public int solution(int[] numbers, int target) {
-        return dfs(0, numbers, target, 0);
+        dfs(0, 0, target, numbers);
+        return count;
     }
 }
