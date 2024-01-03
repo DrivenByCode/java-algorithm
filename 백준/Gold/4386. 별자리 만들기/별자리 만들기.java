@@ -1,15 +1,11 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.PriorityQueue;
 
 public class Main {
-    private static int[] parent;
-
     private static class Star {
-        private final double x, y;
+        private double x, y;
 
         private Star(double x, double y) {
             this.x = x;
@@ -18,35 +14,23 @@ public class Main {
     }
 
     private static class Edge implements Comparable<Edge> {
-        private final int start, end;
-        private final double weight;
+        private int node;
+        private double weight;
 
-        private Edge(int start, int end, double weight) {
-            this.start = start;
-            this.end = end;
+        private Edge(int node, double weight) {
+            this.node = node;
             this.weight = weight;
         }
 
         @Override
         public int compareTo(Edge o) {
-            // 가까운 거리순
+            // 가까운 거리순으로 정렬
             return Double.compare(this.weight, o.weight);
         }
     }
 
-    private static int find(int x) {
-        if (parent[x] == x) return x;
-        return parent[x] = find(parent[x]);
-    }
-
-    private static void union(int a, int b) {
-        a = find(a);
-        b = find(b);
-        if (a != b) parent[a] = b;
-    }
-
     private static double calculateDistance(Star a, Star b) {
-        // 유클리드(유클리디안) 거리
+        // 유클리드 거리
         return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
     }
 
@@ -54,30 +38,33 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         Star[] stars = new Star[n];
-        parent = new int[n];
-        List<Edge> edges = new ArrayList<>();
+        boolean[] visited = new boolean[n];
+        PriorityQueue<Edge> pq = new PriorityQueue<>();
 
         for (int i = 0; i < n; i++) {
             String[] input = br.readLine().split(" ");
-            double x = Double.parseDouble(input[0]);
-            double y = Double.parseDouble(input[1]);
-            stars[i] = new Star(x, y);
-            parent[i] = i;
+            stars[i] = new Star(Double.parseDouble(input[0]), Double.parseDouble(input[1]));
         }
 
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n; j++) {
-                edges.add(new Edge(i, j, calculateDistance(stars[i], stars[j])));
-            }
-        }
-
-        Collections.sort(edges);
-
+        // 시작 노드를 0으로 설정
+        pq.offer(new Edge(0, 0));
         double result = 0;
-        for (Edge edge : edges) {
-            if (find(edge.start) != find(edge.end)) {
-                union(edge.start, edge.end);
-                result += edge.weight;
+
+        // 프림 알고리즘
+        while (!pq.isEmpty()) {
+            Edge current = pq.poll();
+
+            if (visited[current.node]) {
+                continue;
+            }
+
+            visited[current.node] = true;
+            result += current.weight;
+
+            for (int i = 0; i < n; i++) {
+                if (!visited[i]) {
+                    pq.offer(new Edge(i, calculateDistance(stars[current.node], stars[i])));
+                }
             }
         }
 
