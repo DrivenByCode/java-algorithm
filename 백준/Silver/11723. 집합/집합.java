@@ -15,6 +15,9 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             String command = st.nextToken();
             if (command.equals("all")) {
+                // 1부터 20을 사용하기 때문에 맨 오른쪽 비트는 버리고 사용하므로 21이 들어감.
+                // -1 한 이유는 이진수에서 2의 제곱수는 맨 좌측 비트만 켜져있는 상태여서
+                // 모든 비트가 켜져있게 하기 위함.
                 s = (1 << 21) - 1;
             } else if (command.equals("empty")) {
                 s = 0;
