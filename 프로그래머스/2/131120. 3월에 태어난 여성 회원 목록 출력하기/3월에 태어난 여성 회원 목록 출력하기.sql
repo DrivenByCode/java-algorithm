@@ -1,0 +1,5 @@
+-- 프로그래머스 : 3월에 태어난 여성 회원 목록 출력하기
+SELECT MEMBER_ID, MEMBER_NAME, GENDER, TO_CHAR(DATE_OF_BIRTH, 'YYYY-mm-DD') AS "DATE_OF_BIRTH"
+FROM MEMBER_PROFILE
+WHERE EXTRACT(month from DATE_OF_BIRTH) = '03' AND gender = 'W' AND tlno is not null
+ORDER BY MEMBER_ID ASC
