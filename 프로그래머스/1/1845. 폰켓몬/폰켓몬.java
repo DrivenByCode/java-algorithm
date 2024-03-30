@@ -1,17 +1,13 @@
 import java.util.*;
 class Solution {
     public int solution(int[] nums) {
-        HashMap<Integer, Integer> pocketmonCounts = new HashMap<>(); 
-        for(int num : nums) {
-            pocketmonCounts.put(num, pocketmonCounts.getOrDefault(num, 0) + 1);
+        int answer = nums.length / 2;
+        Set<Integer> sets = new HashSet<>();
+        
+        for(int i : nums) {
+            sets.add(i);
         }
         
-        int possibleCount = nums.length / 2;
-        
-        if(pocketmonCounts.size() < possibleCount) {
-            return pocketmonCounts.size();
-        } else {
-            return possibleCount;
-        }
+        return Math.min(answer, sets.size());
     }
 }
