@@ -6,8 +6,8 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static int[][] oddDir = {{0, -1}, {0, 1}, {1, 0}, {1, 1}, {-1, 1}, {-1, 0}};
-    private static int[][] evenDir = {{0, -1}, {0, 1}, {1, 0}, {1, -1}, {-1, -1}, {-1, 0}};
+    private static final int[][] oddDir = {{0, -1}, {0, 1}, {1, 0}, {1, 1}, {-1, 1}, {-1, 0}}; // 홀수행
+    private static final int[][] evenDir = {{0, -1}, {0, 1}, {1, 0}, {1, -1}, {-1, -1}, {-1, 0}}; // 짝수행
     private static int w;
     private static int h;
     private static int[][] map;
@@ -23,6 +23,7 @@ public class Main {
         }
     }
 
+    // 가장자리 부분도 안쪽으로 취급하고 가장 자리에 조명을 설치하기 위해 +2 
     private static boolean isInside(int x, int y) {
         return x >= 0 && x < h + 2 && y >= 0 && y < w + 2;
     }
@@ -87,8 +88,6 @@ public class Main {
             }
         }
 
-        int answer = bfs();
-
-        System.out.println(answer);
+        System.out.println(bfs());
     }
 }
