@@ -6,8 +6,8 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static int[][] dHorse = {{-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1}};
-    private static int[][] dMove = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    private static final int[][] dHorse = {{-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1}};
+    private static final int[][] dMove = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
     private static int w, h, k;
     private static boolean[][][] visited;
     private static int[][] map;
@@ -76,7 +76,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         k = Integer.parseInt(br.readLine());
 
         StringTokenizer st = new StringTokenizer(br.readLine());
