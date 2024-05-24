@@ -51,13 +51,16 @@ public class Main {
                     }
                 }
 
+                // 다음 이동할 장소가 벽이거나 불이 위치해 있는 곳일 땐 이동불가
                 if (map[nx][ny] == '#' || map[nx][ny] == 'F') continue;
                 if (visited[nx][ny]) continue;
 
+                // 불이면 다음에 이동할 장소에 불을 위치 시킴
                 if (isFire) {
                     map[nx][ny] = 'F';
                     queue.offer(new Point(nx, ny, movement + 1, true));
                 } else {
+                    // 불이 아니고 지훈이면 다음 벽이나 불이 아닌 곳으로 이동
                     if (map[nx][ny] == '.') {
                         queue.offer(new Point(nx, ny, movement + 1, false));
                     }
