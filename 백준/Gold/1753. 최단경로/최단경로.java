@@ -74,8 +74,13 @@ public class Main {
 
         dijkstra(graph, k);
 
+        StringBuilder sb = new StringBuilder();
+
         for (int i = 1; i <= V; i++) {
-            System.out.println(dist[i] == Integer.MAX_VALUE ? "INF" : dist[i]);
+            String ans = dist[i] == Integer.MAX_VALUE ? "INF" : String.valueOf(dist[i]);
+            sb.append(ans).append("\n");
         }
+
+        System.out.println(sb.toString().trim());
     }
 }
