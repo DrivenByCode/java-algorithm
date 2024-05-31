@@ -14,8 +14,8 @@ public class Main {
     private static int r, c;
 
     private static class Point {
-        private int x;
-        private int y;
+        private final int x;
+        private final int y;
         private final int movement;
         private final boolean isFire;
 
@@ -44,11 +44,10 @@ public class Main {
                 int ny = y + dy[i];
 
                 if (!isInside(nx, ny)) {
-                    if (!isFire) {
-                        return movement + 1;
-                    } else {
+                    if (isFire) {
                         continue;
                     }
+                    return movement + 1;
                 }
 
                 // 다음 이동할 장소가 벽이거나 불이 위치해 있는 곳일 땐 이동불가
