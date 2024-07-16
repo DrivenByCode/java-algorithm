@@ -27,7 +27,7 @@ public class Main {
         return 0 <= x && x < n && 0 <= y && y < m;
     }
 
-    private static void fill(int x, int y, int direction, int[][] map, ArrayList<Point> covered) {
+    private static void fill(int x, int y, int direction, ArrayList<Point> covered) {
         int nx = x;
         int ny = y;
         while (true) {
@@ -41,15 +41,15 @@ public class Main {
         }
     }
 
-    private static void unfill(int[][] tempMap, ArrayList<Point> covered) {
+    private static void unfill(ArrayList<Point> covered) {
         for (Point p : covered) {
-            tempMap[p.x][p.y] = 0;
+            map[p.x][p.y] = 0;
         }
     }
 
     private static void dfs(int depth) {
         if (depth == cctvs.size()) {
-            int blindSpots = countBlindSpots(map);
+            int blindSpots = countBlindSpots();
             minBlindSpots = Math.min(minBlindSpots, blindSpots);
             return;
         }
@@ -61,42 +61,42 @@ public class Main {
             ArrayList<Point> covered = new ArrayList<>();
             switch (type) {
                 case 1:
-                    fill(cctv.x, cctv.y, i, map, covered);
+                    fill(cctv.x, cctv.y, i, covered);
                     dfs(depth + 1);
-                    unfill(map, covered);
+                    unfill(covered);
                     break;
                 case 2:
-                    fill(cctv.x, cctv.y, i, map, covered);
-                    fill(cctv.x, cctv.y, (i + 2) % 4, map, covered);
+                    fill(cctv.x, cctv.y, i, covered);
+                    fill(cctv.x, cctv.y, (i + 2) % 4, covered);
                     dfs(depth + 1);
-                    unfill(map, covered);
+                    unfill(covered);
                     break;
                 case 3:
-                    fill(cctv.x, cctv.y, i, map, covered);
-                    fill(cctv.x, cctv.y, (i + 1) % 4, map, covered);
+                    fill(cctv.x, cctv.y, i, covered);
+                    fill(cctv.x, cctv.y, (i + 1) % 4, covered);
                     dfs(depth + 1);
-                    unfill(map, covered);
+                    unfill(covered);
                     break;
                 case 4:
-                    fill(cctv.x, cctv.y, i, map, covered);
-                    fill(cctv.x, cctv.y, (i + 1) % 4, map, covered);
-                    fill(cctv.x, cctv.y, (i + 2) % 4, map, covered);
+                    fill(cctv.x, cctv.y, i, covered);
+                    fill(cctv.x, cctv.y, (i + 1) % 4, covered);
+                    fill(cctv.x, cctv.y, (i + 2) % 4, covered);
                     dfs(depth + 1);
-                    unfill(map, covered);
+                    unfill(covered);
                     break;
                 case 5:
-                    fill(cctv.x, cctv.y, 0, map, covered);
-                    fill(cctv.x, cctv.y, 1, map, covered);
-                    fill(cctv.x, cctv.y, 2, map, covered);
-                    fill(cctv.x, cctv.y, 3, map, covered);
+                    fill(cctv.x, cctv.y, 0, covered);
+                    fill(cctv.x, cctv.y, 1, covered);
+                    fill(cctv.x, cctv.y, 2, covered);
+                    fill(cctv.x, cctv.y, 3, covered);
                     dfs(depth + 1);
-                    unfill(map, covered);
+                    unfill(covered);
                     break;
             }
         }
     }
 
-    private static int countBlindSpots(int[][] map) {
+    private static int countBlindSpots() {
         int count = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
