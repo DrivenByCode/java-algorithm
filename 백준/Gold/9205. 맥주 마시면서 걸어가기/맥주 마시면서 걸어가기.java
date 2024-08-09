@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 // https://www.acmicpc.net/problem/9205
+// 시간복잡도 : O(n^2)
 
 public class Main {
 
