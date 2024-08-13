@@ -4,6 +4,8 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    // 크래머의 공식 (선형대수)
+    // 0(1)
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -16,17 +18,10 @@ public class Main {
         int e = Integer.parseInt(st.nextToken());
         int f = Integer.parseInt(st.nextToken());
 
-        while (true) {
-            for (int i = -999; i <= 999; i++) {
-                for (int j = -999; j <= 999; j++) {
-                    if ((a * i + b * j) == c) {
-                        if ((d * i + e * j) == f) {
-                            System.out.println(i + " " + j);
-                            return;
-                        }
-                    }
-                }
-            }
-        }
+        int denominator = a * e - d * b;
+        int dx = c * e - b * f;
+        int dy = a * f - d * c;
+
+        System.out.println((dx / denominator) + " " + (dy / denominator));
     }
 }
