@@ -46,10 +46,9 @@ public class Main {
         area = area.abs();
 
         // BigDecimal로 변환하여 소수점 계산
-        // 10은 정밀도, 그 이후는 반올림 처리를 나타냄
-        BigDecimal finalArea = new BigDecimal(area).divide(BigDecimal.valueOf(2), 3, RoundingMode.HALF_UP);
+        // 1은 정밀도(소수점 이하 첫 번째 자리 까지를 의미), 그 이후는 반올림 처리를 나타냄
+        BigDecimal finalArea = new BigDecimal(area).divide(BigDecimal.valueOf(2), 1, RoundingMode.HALF_UP);
 
-        // 소수점 첫째 자리까지 출력
-        System.out.printf("%.1f", finalArea);
+        System.out.print(finalArea);
     }
 }
