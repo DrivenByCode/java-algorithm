@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    static class Village implements Comparable<Village> {
-        long position;
-        long population;
+    private static class Village implements Comparable<Village> {
+        private final long position;
+        private final long population;
 
-        Village(long position, long population) {
+        Village(final long position, final long population) {
             this.position = position;
             this.population = population;
         }
