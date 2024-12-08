@@ -19,29 +19,28 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int n = Integer.parseInt(br.readLine());
-
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         Deque<Tower> deque = new ArrayDeque<>();
-
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 1; i <= n; i++) {
             int height = Integer.parseInt(st.nextToken());
-            while (!deque.isEmpty()) {
-                Tower lastTower = deque.peek();
-                // 지난 타워의 높이가 더 높거나 크다면 (현 위치 보다 왼쪽에 있는 타워)
-                if (lastTower.height >= height) {
-                    bw.write(lastTower.idx + " ");
-                    break;
-                }
-                deque.pop();
+
+            while (!deque.isEmpty() && deque.peek().height < height) {
+                deque.poll(); // 지금 타워보다 더 높이가 낮은 타워는 제거
             }
+
             if (deque.isEmpty()) {
-                bw.write("0 ");
+                sb.append("0 ");
+            } else {
+                sb.append(deque.peek().idx).append(" ");
             }
-            deque.push(new Tower(i, height));
+
+            deque.offerFirst(new Tower(i, height));
         }
 
+        bw.write(sb.toString());
         bw.flush();
         bw.close();
     }
