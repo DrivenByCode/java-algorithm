@@ -15,9 +15,10 @@ public class Main {
             int[] inputs = new int[n];
             int idx = 0;
 
+            Loop:
             while (idx < n) {
                 for (String token : br.readLine().split(" ")) {
-                    if (idx >= n) break;
+                    if (idx >= n) break Loop;
                     inputs[idx++] = Integer.parseInt(token);
                 }
             }
