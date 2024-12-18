@@ -16,11 +16,12 @@ public class Main {
             int idx = 0;
 
             while (idx < n) {
-                StringTokenizer st = new StringTokenizer(br.readLine());
-                while (st.hasMoreTokens() && idx < n) {
-                    inputs[idx++] = Integer.parseInt(st.nextToken());
+                for (String token : br.readLine().split(" ")) {
+                    if (idx >= n) break;
+                    inputs[idx++] = Integer.parseInt(token);
                 }
             }
+
 
             PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
             PriorityQueue<Integer> minHeap = new PriorityQueue<>();
