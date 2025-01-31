@@ -10,56 +10,7 @@ import java.util.StringTokenizer;
 
 public class Main {
     private static int[] parent;
-    private static int[] rank;
-
-    private static class Edge implements Comparable<Edge> {
-        private final int v1;
-        private final int v2;
-        private final int cost;
-
-        private Edge(final int v1, final int v2, final int cost) {
-            this.v1 = v1;
-            this.v2 = v2;
-            this.cost = cost;
-        }
-
-        @Override
-        public int compareTo(Edge o) {
-            return this.cost - o.cost;
-        }
-    }
-
-    private static void initUnionFind(int n) {
-        parent = new int[n + 1];
-        rank = new int[n + 1];
-        for (int i = 1; i <= n; i++) {
-            parent[i] = i;
-            rank[i] = 0;
-        }
-    }
-
-    private static int find(int x) {
-        if (parent[x] != x) {
-            return parent[x] = find(parent[x]);
-        }
-        return parent[x];
-    }
-
-    private static void union(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
-
-        if (rootX == rootY) return;
-
-        if (rank[rootX] > rank[rootY]) {
-            parent[rootY] = rootX;
-        } else {
-            parent[rootX] = rootY;
-            if (rank[rootX] == rank[rootY]) {
-                rank[rootY]++;
-            }
-        }
-    }
+    private static int[] size;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -71,7 +22,7 @@ public class Main {
 
         initUnionFind(n);
 
-        List<Edge> edgeList = new ArrayList<>();
+        List<Edge> edges = new ArrayList<>();
 
         long totalCost = 0;
 
@@ -83,18 +34,18 @@ public class Main {
 
             totalCost += c;
 
-            edgeList.add(new Edge(a, b, c));
+            edges.add(new Edge(a, b, c));
         }
 
         // 비용이 작은 순으로 정렬
-        Collections.sort(edgeList);
+        Collections.sort(edges);
 
         // 트리의 간선의 수는 정점의 수 - 1, edge = vertex - 1;
         int cnt = 0;
 
         long mstCost = 0;
 
-        for (Edge eg : edgeList) {
+        for (Edge eg : edges) {
             int fv1 = find(eg.v1);
             int fv2 = find(eg.v2);
 
@@ -116,5 +67,53 @@ public class Main {
         }
 
         System.out.println(totalCost - mstCost);
+    }
+
+    private static class Edge implements Comparable<Edge> {
+        private final int v1;
+        private final int v2;
+        private final int cost;
+
+        private Edge(final int v1, final int v2, final int cost) {
+            this.v1 = v1;
+            this.v2 = v2;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(Edge o) {
+            return Integer.compare(this.cost, o.cost);
+        }
+    }
+
+    private static void initUnionFind(int n) {
+        parent = new int[n + 1];
+        size = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            parent[i] = i;
+        }
+    }
+
+    private static int find(int x) {
+        if (parent[x] == x) {
+            return x;
+        }
+        return parent[x] = find(parent[x]);
+    }
+
+    private static void union(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+
+        if (rootX == rootY) return;
+        
+        // size 기반 최적화 (rank 기반 최적화 방법과는 다름)
+        if (size[rootX] > size[rootY]) {
+            parent[rootY] = rootX;
+            size[rootX] += size[rootY];
+        } else {
+            parent[rootX] = rootY;
+            size[rootY] += size[rootX];
+        }
     }
 }
