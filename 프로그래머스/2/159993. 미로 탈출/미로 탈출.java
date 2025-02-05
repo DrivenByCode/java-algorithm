@@ -1,7 +1,7 @@
 import java.util.*;
 
 class Solution {
-    private static final int[] dx = {-1, 0, 1, 0}; // 상, 우, 하, 좌
+    private static final int[] dx = {-1, 0, 1, 0}; // 좌, 상, 우, 하
     private static final int[] dy = {0, 1, 0, -1};
     private static int w, h;
 
